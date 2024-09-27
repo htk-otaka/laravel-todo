@@ -39,3 +39,13 @@ php artisan make:request CreateTask
 ```
 php artisan make:test TaskTest
 ```
+
+9. ポリシークラスの作成
+```
+php artisan make:policy FolderPolicy
+```
+
+9. プロバイダーの作成
+```
+php artisan make:provider RiakServiceProvider
+```
