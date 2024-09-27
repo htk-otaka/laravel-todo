@@ -44,3 +44,9 @@ services:
         container_name: laravel-redis
         ports:
             - 16379:6379
+
+    mail:
+        image: mailhog/mailhog
+        container_name: "mailhog"
+        ports:
+            - 8025:8025
