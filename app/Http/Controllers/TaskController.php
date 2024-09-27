@@ -61,6 +61,7 @@ class TaskController extends Controller
 
     public function showEditForm(Folder $folder, Task $task)
     {
+        $this->checkRelation($folder, $task);
         /** @var App\Models\User */
         $user = Auth::user();
         $folder = $user->folders()->findOrFail($folder->id);
@@ -73,6 +74,7 @@ class TaskController extends Controller
 
     public function edit(Folder $folder, Task $task, EditTask $request)
     {
+        $this->checkRelation($folder, $task);
         /** @var App\Models\User */
         $user = Auth::user();
         $folder = $user->folders()->findOrFail($folder->id);
@@ -90,6 +92,7 @@ class TaskController extends Controller
 
     public function showDeleteForm(Folder $folder, Task $task)
     {
+        $this->checkRelation($folder, $task);
         /** @var App\Models\User */
         $user = Auth::user();
         $folder = $user->folders()->findOrFail($folder->id);
@@ -102,6 +105,7 @@ class TaskController extends Controller
 
     public function delete(Folder $folder, Task $task)
     {
+        $this->checkRelation($folder, $task);
         /** @var App\Models\User */
         $user = Auth::user();
         $folder = $user->folders()->findOrFail($folder->id);
@@ -112,5 +116,12 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', [
             'folder' => $task->folder_id,
         ]);
+    }
+
+    private function checkRelation(Folder $folder, Task $task)
+    {
+        if ($folder->id !== $task->folder_id) {
+            abort(404);
+        }
     }
 }
