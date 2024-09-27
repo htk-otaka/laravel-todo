@@ -4,43 +4,43 @@ services:
     nginx:
         container_name: laravel-nginx
         build:
-        context: ./docker/nginx
+            context: ./docker/nginx
         depends_on:
-        - laravel-app
+            - laravel-app
         ports:
-        - 80:80
+            - 80:80
         volumes:
-        - ./:/src
+            - ./:/src
 
     laravel-app:
         container_name: laravel-app
         build:
-        context: ./docker/php
+            context: ./docker/php
         depends_on:
-        - laravel-mysql
+            - laravel-mysql
         ports:
-        - 5173:5173
+            - 5173:5173
         volumes:
-        - ./:/src
-        - ./node_modules:/src/node_modules
-        - ./vendor:/src/vendor
-        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./:/src
+            - ./node_modules:/src/node_modules
+            - ./vendor:/src/vendor
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
 
     laravel-mysql:
         container_name: laravel-mysql
         image: mysql:8.4
         command: --max_allowed_packet=32505856
         volumes:
-        - ./docker/mysql:/var/lib/mysql
+            - ./docker/mysql:/var/lib/mysql
         environment:
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=laravel_app
-        - MYSQL_USER=laravel_user
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=laravel_app
+            - MYSQL_USER=laravel_user
         ports:
-        - 3306:3306
+            - 3306:3306
 
     laravel-redis:
         image: redis:alpine
         container_name: laravel-redis
         ports:
-        - 16379:6379
+            - 16379:6379
